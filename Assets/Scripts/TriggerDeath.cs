@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 public class TriggerDeath : MonoBehaviour
 {
@@ -8,10 +9,10 @@ public class TriggerDeath : MonoBehaviour
     public WheelJoint2D[] tires;
     public GameObject[] bodyParts = new GameObject[10];
     public GameObject parentObj;
-    private bool isDead;
+   public static bool isDead;
     public void Start()
     {
-        print(parentObj.name + ":" + parentObj.transform.localEulerAngles.z);
+        //print(parentObj.name + ":" + parentObj.transform.localEulerAngles.z);
         isDead = false;
         Time.timeScale = 1f;
         for (int i = 0;i<5;i++)
@@ -58,7 +59,11 @@ public class TriggerDeath : MonoBehaviour
             tires[i].enabled = false;
         }
         yield return new WaitForSeconds(2.5f);
-        SceneManager.LoadScene("SampleScene");
-
+        GameManager.driverDown = true;
+        GameManager.instance.AfterGame();
+        // SceneManager.LoadScene("SampleScene");
+        /*TotalCoin.text = CoinCollector.tempCoin.ToString();
+        TotalAirTime.text = CarController.airTimeCount.ToString();
+        AfterDeath.SetActive(true);*/
     }
 }
